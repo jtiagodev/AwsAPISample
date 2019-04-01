@@ -32,38 +32,38 @@ Returns a list of police forces.
 
 ### Get Police Force Info [GET /dataset/forces/{id}]
 
-Returns the information for a Specific Force from its specified ID
+Returns the information for a Specific Force from its specified ID.
 
 + Response 200 (application/json)
 
         {
-            "description": "A police service for everyone",
-            "url": "http://www.leics.police.uk/",
-            "engagement_methods": [
-                {
-                    "url": "http://www.facebook.com/pages/Leicester/Leicestershire-Police/76807881169",
-                    "description": "Become friends with Leicestershire Constabulary",
-                    "title": "Facebook"
-                },
-                {
-                    "url": "http://www.twitter.com/leicspolice",
-                    "description": "Keep up to date with Leicestershire Constabulary on Twitter",
-                    "title": "Twitter"
-                },
-                {
-                    "url": "http://www.youtube.com/leicspolice",
-                    "description": "See Leicestershire Constabulary's latest videos on YouTube",
-                    "title": "YouTube"
-                },
-                {
-                    "url": "http://www.leics.police.uk/rss/",
-                    "description": "Keep informed with Leicestershire Constabulary's RSS feed",
-                    "title": "RSS"
-                }
-            ],
-            "telephone": "0116 222 2222",
-            "id": "leicestershire",
-            "name": "Leicestershire Constabulary"
+        "description": "A police service for everyone",
+        "url": "http://www.leics.police.uk/",
+        "engagement_methods": [
+        {
+        "url": "http://www.facebook.com/pages/Leicester/Leicestershire-Police/76807881169",
+        "description": "Become friends with Leicestershire Constabulary",
+        "title": "Facebook"
+        },
+        {
+        "url": "http://www.twitter.com/leicspolice",
+        "description": "Keep up to date with Leicestershire Constabulary on Twitter",
+        "title": "Twitter"
+        },
+        {
+        "url": "http://www.youtube.com/leicspolice",
+        "description": "See Leicestershire Constabulary's latest videos on YouTube",
+        "title": "YouTube"
+        },
+        {
+        "url": "http://www.leics.police.uk/rss/",
+        "description": "Keep informed with Leicestershire Constabulary's RSS feed",
+        "title": "RSS"
+        }
+        ],
+        "telephone": "0116 222 2222",
+        "id": "leicestershire",
+        "name": "Leicestershire Constabulary"
         }
 
 ### Get Police Force Info [GET /dataset/forces/{id}/people]
@@ -73,14 +73,14 @@ Returns the list of senior officers for a Specific Force from its specified ID
 + Response 200 (application/json)
 
         {
-            [
-                {
-                    "bio": "Roger joined Lincolnshire Police in 1988 having attended Queen Elizabeth Grammar School",
-                    "contact_details": {
-                        "twitter": "http://www.twitter.com/ACCCLeicsPolice"
-                    },
-                    "name": "Roger Bannister",
-                    "rank": "Assistant Chief Officer (Crime)"
-                }
-            ]
+        [
+        {
+        "bio": "Roger joined Lincolnshire Police in 1988 having attended Queen Elizabeth Grammar School",
+        "contact_details": {
+        "twitter": "http://www.twitter.com/ACCCLeicsPolice"
+        },
+        "name": "Roger Bannister",
+        "rank": "Assistant Chief Officer (Crime)"
+        }
+        ]
         }
