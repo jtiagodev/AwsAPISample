@@ -3,163 +3,85 @@ HOST: http://polls.apiblueprint.org/
 
 # CN 18/19 - Grupo 9
 
-A simplified API based on data taken from data.police.uk for Cloud Computing subject in FCUL.
+An API based on data taken from data.police.uk for Cloud Computing subject in FCUL
 
 ## Police Force Collection [/dataset/forces]
 
-### Get Police Forces [GET /dataset/forces{?id,officers,neighbourhoods}]
+### Get Police Forces [GET /dataset/forces]
 
-Returns a list of police forces and their details alongside an array of all their officers and neighbourhoods.
-
-+ Parameters
-    + id (optional, string, ``) ... get the police force by id, else lists all
-    + officers (optional, boolean, `true`) ... whether to include the list of officers 
-    + neighbourhoods (optional, boolean, `true`) ... whether to include the list of neighbourhoods 
+Returns a list of police forces.
 
 + Response 200 (application/json)
 
         {
-          "forces": [
-            {
-              "description": "A police service for everyone Leicestershire Constabulary provides crimes to be committed (..)",
-              "url": "http://www.leics.police.uk/",
-              "engagement_methods": [
-                {
-                  "facebook": "http://www.facebook.com/pages/Leicester/Leicestershire-Police/76807881169",
-                  "twitter": "http://www.twitter.com/leicspolice",
-                  "youtube": "http://www.youtube.com/leicspolice"
-                },
-                {
-                  "url": "http://www.leics.police.uk/rss/",
-                  "description": "Keep informed with Leicestershire Constabulary's RSS feed",
-                  "title": "RSS"
-                }
-              ],
-              "telephone": "0116 222 2222",
-              "id": "leicestershire",
-              "name": "Leicestershire Constabulary",
-              "officers": [
-                {
-                  "bio": "Roger joined Lincolnshire Police in 1988(...)",
-                  "contact_details": {
-                    "twitter": "http://www.twitter.com/ACCCLeicsPolice"
-                  },
-                  "name": "Roger Bannister",
-                  "rank": "Assistant Chief Officer (Crime)"
-                }
-              ],
-              "neighborhoods": [
-                {
-                    "id": "NC04",
-                    "name": "City Centre"
-                }
-             ]
-            }
-          ]
-        }
-
-## Crimes Collection [/dataset/crimes]
-
-### Get Crimes [GET /dataset/crimes{?lat,lon,date,category,personid}]
-
-Returns a list of crimes alongside their outcome status filterable by location, date (since), crime category and/or person ID.
-
-+ Parameters
-    + lat (optional, string, ``) ... latitude
-    + lon (optional, string, ``) ... longitude
-    + date (optional, string, ``) ... date (from) to include crimes
-    + personid (optional, string, ``) ... person ID (commiting the crime) to match the results
-    + category (optional, string, ``) ... category of crime
-
-+ Response 200 (application/json)  
-
-        {
-            "crimes":
             [
-              {
-                "crime": {
-                  "category": "anti-social-behaviour",
-                  "location_type": "Force",
-                  "location": {
-                    "latitude": "52.640961",
-                    "street": {
-                      "name": "On or near Wharf Street North"
-                    },
-                    "longitude": "-1.126371"
-                  },
-                  "context": "",
-                  "location_subtype": "",
-                  "month": "2017-01"
+                {
+                    "id": "avon-and-somerset",
+                    "name": "Avon and Somerset Constabulary"
                 },
-                "outcome": {
-                  "category": {
-                    "code": "unable-to-prosecute",
-                    "name": "Unable to prosecute suspect"
-                  },
-                  "date": "2017-01",
-                  "person_id": "null"
+                {
+                    "id": "bedfordshire",
+                    "name": "Bedfordshire Police"
+                },
+                {
+                    "id": "cambridgeshire",
+                    "name": "Cambridgeshire Constabulary"
                 }
-              }
             ]
         }
 
-### Submit a new Crime [POST]
+### Get Police Force Info [GET /dataset/forces/{id}]
 
-You may submit a new crime through this endpoint by specifying the crime details. The service will return the crime ID.
+Returns the information for a Specific Force from its specified ID
 
-+ Request (application/json)
++ Response 200 (application/json)
 
         {
-            "category": "anti-social-behaviour",
-            "location_type": "Force",
-            "location": {
-                "latitude": "52.640961",
-                "street": {
-                    "name": "On or near Wharf Street North"
+            "description": "h2.A police service for everyone\n\t\n\tLeicestershire Constabulary provides a policing service to the people of Leicester, Leicestershire and Rutland 24-hours a day, 365-days of the year.\n\nThe area we are responsible for covers over 2,500 square kilometres (over 965 square miles) and has a population of nearly one million. There is a rich diversity of communities all with their own policing needs.\n\nMany steps have been taken to bring policing back into the very heart of local communities. This has included the replacement of older, larger or out-of-town police buildings with modern, self-contained local policing units in the very centre of local communities.\n\nEach of the 15 local policing units is headed by an inspector whose responsibility is to ensure that their area receives a 24-hour policing service.\n\nTo help them provide this service they are supported by specialist departments such as the dog section, the scientific support department and the East Midlands air support unit.\n\nRather than waiting for crimes to be committed, we are working more and more to plan operations and target criminals. Many of these operations, which are aimed at tackling specific problems, involve working in partnership with local residents and other agencies and have proved to be very successful.\n\nOver the years we have forged close working relationships with local communities, other organisations and agencies and we continue to develop and strengthen these partnerships, working together to fight crime and improve the quality of life for everyone.",
+            "url": "http://www.leics.police.uk/",
+            "engagement_methods": [
+                {
+                    "url": "http://www.facebook.com/pages/Leicester/Leicestershire-Police/76807881169",
+                    "description": "Become friends with Leicestershire Constabulary",
+                    "title": "Facebook"
                 },
-                "longitude": "-1.126371"
-            },
-            "context": "",
-            "location_subtype": "",
-            "month": "2017-01"
+                {
+                    "url": "http://www.twitter.com/leicspolice",
+                    "description": "Keep up to date with Leicestershire Constabulary on Twitter",
+                    "title": "Twitter"
+                },
+                {
+                    "url": "http://www.youtube.com/leicspolice",
+                    "description": "See Leicestershire Constabulary's latest videos on YouTube",
+                    "title": "YouTube"
+                },
+                {
+                    "url": "http://www.leics.police.uk/rss/",
+                    "description": "Keep informed with Leicestershire Constabulary's RSS feed",
+                    "title": "RSS"
+                }
+            ],
+            "telephone": "0116 222 2222",
+            "id": "leicestershire",
+            "name": "Leicestershire Constabulary"
         }
 
-+ Response 201 (application/json)
+### Get Police Force Info [GET /dataset/forces/{id}/people]
 
-    + Headers
+Returns the list of senior officers for a Specific Force from its specified ID
 
-
-    + Body
-
-            {
-                "id": 54164419
-            }
-
-### Update a Crime Outcome [POST /dataset/crimes{?crimeid}]
-
-You may update a crime outcome status by specifying the crime ID. Returns the crime ID.
-
-+ Parameters
-    + crimeid (required, string, ``) ... crime id to be updated
-
-+ Request (application/json)
++ Response 200 (application/json)
 
         {
-          "category": {
-            "code": "unable-to-prosecute",
-            "name": "Unable to prosecute suspect"
-          },
-          "date": "2017-01",
-          "person_id": "null"
+            [
+                {
+                    "bio": "Roger joined Lincolnshire Police in 1988 having attended Queen Elizabeth Grammar School in Gainsborough and then working in retail management in London. He progressed through the ranks both in uniformed operations and criminal investigation roles, particularly enjoying his experience as a detective. He has a degree in Policing Studies.\nRoger describes his two proudest career moments as being commended as a Detective Sergeant for detecting a knife-point stranger kidnap and sex attack on a young schoolgirl and then ten years later, as the Head of CID, being commended over a four-year long global child protection investigation.\nIn October 2010 Roger took up the role as temporary Assistant Chief Constable (Protective Services) in Lincolnshire Police and in March 2012 graduated from the Strategic Command Course.\nHe was appointed as Leicestershire Police’s Assistant Chief Constable (Crime) in June 2013.\nRoger is married and has six year old twin boys. His many hobbies include mountaineering (which has included trips to Scotland, the Alps and the Himalayas) skiing, running and open water swimming.",
+                    "contact_details": {
+                        "twitter": "http://www.twitter.com/ACCCLeicsPolice"
+                    },
+                    "name": "Roger Bannister",
+                    "rank": "Assistant Chief Officer (Crime)"
+                }
+        
+            ]
         }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-
-    + Body
-
-            {
-                "id": 54164419
-            }
