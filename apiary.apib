@@ -1,0 +1,165 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# CN 18/19 - Grupo 9
+
+A simplified API based on data taken from data.police.uk for Cloud Computing subject in FCUL.
+
+## Police Force Collection [/dataset/forces]
+
+### Get Police Forces [GET /dataset/forces{?id,officers,neighbourhoods}]
+
+Returns a list of police forces and their details alongside an array of all their officers and neighbourhoods.
+
++ Parameters
+    + id (optional, string, ``) ... get the police force by id, else lists all
+    + officers (optional, boolean, `true`) ... whether to include the list of officers 
+    + neighbourhoods (optional, boolean, `true`) ... whether to include the list of neighbourhoods 
+
++ Response 200 (application/json)
+
+        {
+          "forces": [
+            {
+              "description": "A police service for everyone Leicestershire Constabulary provides crimes to be committed (..)",
+              "url": "http://www.leics.police.uk/",
+              "engagement_methods": [
+                {
+                  "facebook": "http://www.facebook.com/pages/Leicester/Leicestershire-Police/76807881169",
+                  "twitter": "http://www.twitter.com/leicspolice",
+                  "youtube": "http://www.youtube.com/leicspolice"
+                },
+                {
+                  "url": "http://www.leics.police.uk/rss/",
+                  "description": "Keep informed with Leicestershire Constabulary's RSS feed",
+                  "title": "RSS"
+                }
+              ],
+              "telephone": "0116 222 2222",
+              "id": "leicestershire",
+              "name": "Leicestershire Constabulary",
+              "officers": [
+                {
+                  "bio": "Roger joined Lincolnshire Police in 1988(...)",
+                  "contact_details": {
+                    "twitter": "http://www.twitter.com/ACCCLeicsPolice"
+                  },
+                  "name": "Roger Bannister",
+                  "rank": "Assistant Chief Officer (Crime)"
+                }
+              ],
+              "neighborhoods": [
+                {
+                    "id": "NC04",
+                    "name": "City Centre"
+                }
+             ]
+            }
+          ]
+        }
+
+## Crimes Collection [/dataset/crimes]
+
+### Get Crimes [GET /dataset/crimes{?lat,lon,date,category,personid}]
+
+Returns a list of crimes alongside their outcome status filterable by location, date (since), crime category and/or person ID.
+
++ Parameters
+    + lat (optional, string, ``) ... latitude
+    + lon (optional, string, ``) ... longitude
+    + date (optional, string, ``) ... date (from) to include crimes
+    + personid (optional, string, ``) ... person ID (commiting the crime) to match the results
+    + category (optional, string, ``) ... category of crime
+
++ Response 200 (application/json)  
+
+        {
+            "crimes":
+            [
+              {
+                "crime": {
+                  "category": "anti-social-behaviour",
+                  "location_type": "Force",
+                  "location": {
+                    "latitude": "52.640961",
+                    "street": {
+                      "name": "On or near Wharf Street North"
+                    },
+                    "longitude": "-1.126371"
+                  },
+                  "context": "",
+                  "location_subtype": "",
+                  "month": "2017-01"
+                },
+                "outcome": {
+                  "category": {
+                    "code": "unable-to-prosecute",
+                    "name": "Unable to prosecute suspect"
+                  },
+                  "date": "2017-01",
+                  "person_id": "null"
+                }
+              }
+            ]
+        }
+
+### Submit a new Crime [POST]
+
+You may submit a new crime through this endpoint by specifying the crime details. The service will return the crime ID.
+
++ Request (application/json)
+
+        {
+            "category": "anti-social-behaviour",
+            "location_type": "Force",
+            "location": {
+                "latitude": "52.640961",
+                "street": {
+                    "name": "On or near Wharf Street North"
+                },
+                "longitude": "-1.126371"
+            },
+            "context": "",
+            "location_subtype": "",
+            "month": "2017-01"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+
+    + Body
+
+            {
+                "id": 54164419
+            }
+
+### Update a Crime Outcome [POST /dataset/crimes{?crimeid}]
+
+You may update a crime outcome status by specifying the crime ID. Returns the crime ID.
+
++ Parameters
+    + crimeid (required, string, ``) ... crime id to be updated
+
++ Request (application/json)
+
+        {
+          "category": {
+            "code": "unable-to-prosecute",
+            "name": "Unable to prosecute suspect"
+          },
+          "date": "2017-01",
+          "person_id": "null"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+
+    + Body
+
+            {
+                "id": 54164419
+            }
