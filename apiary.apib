@@ -72,14 +72,144 @@ Returns the list of senior officers for a Specific Force from its specified ID
 + Response 200 (application/json)
 
         {
-            "officers":[
+            "officers": [
                 {
                   "bio": "Roger joined Lincolnshire Police in 1988 having attended Queen Elizabeth Grammar School",
-                  "contact_details": {
-                    "twitter": "http://www.twitter.com/ACCCLeicsPolice"
-                  },
                   "name": "Roger Bannister",
                   "rank": "Assistant Chief Officer (Crime)"
                 }
             ]
+        }
+
+### Submit a new Force [POST]
+
+You may submit a new force through this endpoint by specifying the force details. The service will return the force ID.
+
++ Request (application/json)
+
+        {
+          "description": "A police service for everyone",
+          "url": "http://www.leics.police.uk/",
+          "telephone": "0116 222 2222",
+          "id": "leicestershire",
+          "name": "Leicestershire Constabulary"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+    
+
+    + Body
+
+            {
+                "id": 54164419
+            }
+
+### Delete Force [DELETE /dataset/forces/{id}]
+
+You may delete a force by it's ID
+
++ Response 202 (application/json)
+
+    + Headers
+    
+
+    + Body
+
+
+            
+## Crime Collection [/dataset/crimes]
+
+### Get Crimes List [GET /dataset/crimes/list{?lat,lng,date,poly,date}]
+
++ Parameters
+    + lat (optional, string, `52.629729`) ... Latitude of the requested crime area
+    + lng (optional, string, `1.131592`) ... Longitude of the requested crime area
+    + poly (optional, string, ``) ... The lat/lng pairs which define the boundary of the custom area
+    + date (optional, string, `2017-01`) ... Limit results to a specific month
+
++ Response 200 (application/json)
+
+        {
+            "crimes": 
+                [
+                    {
+                        "category": "anti-social-behaviour",
+                        "location_type": "Force",
+                        "location": {
+                            "latitude": "52.640961",
+                            "street": {
+                                "id": 884343,
+                                "name": "On or near Wharf Street North"
+                            },
+                            "longitude": "-1.126371"
+                        },
+                        "context": "",
+                        "outcome_status": null,
+                        "persistent_id": "",
+                        "id": 54164419,
+                        "location_subtype": "",
+                        "month": "2017-01"
+                    },
+                    {
+                        "category": "anti-social-behaviour",
+                        "location_type": "Force",
+                        "location": {
+                            "latitude": "52.633888",
+                            "street": {
+                                "id": 883425,
+                                "name": "On or near Peacock Lane"
+                            },
+                            "longitude": "-1.138924"
+                        },
+                        "context": "",
+                        "outcome_status": null,
+                        "persistent_id": "",
+                        "id": 54165316,
+                        "location_subtype": "",
+                        "month": "2017-01"
+                    }
+                ]
+        }
+
+### Get Crime Outcomes [GET /dataset/crimes/outcomes{?lat,lng,date,poly,date}]
+
++ Parameters
+    + lat (optional, string, `52.629729`) ... Latitude of the requested crime area
+    + lng (optional, string, `1.131592`) ... Longitude of the requested crime area
+    + poly (optional, string, ``) ... The lat/lng pairs which define the boundary of the custom area
+    + date (optional, string, `2017-01`) ... Limit results to a specific month
+
++ Response 200 (application/json)
+
+        {
+            "outcomes": 
+                    [
+                        {
+                            "category": {
+                                "code": "unable-to-prosecute",
+                                "name": "Unable to prosecute suspect"
+                            },
+                            "date": "2017-01",
+                            "person_id": null,
+                            "crime": {
+                                "category": "theft-from-the-person",
+                                "location_type": "Force",
+                                "location": {
+                                    "latitude": "52.634474",
+                                    "street": {
+                                        "id": 883498,
+                                        "name": "On or near Kate Street"
+                                    },
+                                    "longitude": "-1.149197"
+                                },
+                                "context": "",
+                                "persistent_id": "a5a98275facee535b959b236130f5ec05205869fb3d0804c9b14296fcd0bce46",
+                                "id": 53566126,
+                                "location_subtype": "ROAD",
+                                "month": "2016-12"
+                            }
+                        }
+                    ]
         }
