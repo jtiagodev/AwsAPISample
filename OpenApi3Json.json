@@ -1,0 +1,965 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CN 18/19 - Grupo 9",
+    "description": "An API based on data taken from data.police.uk for Cloud Computing subject in FCUL",
+    "contact": {},
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://polls.apiblueprint.org/",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/dataset/forces": {
+      "get": {
+        "summary": "Get Police Forces",
+        "description": "Returns a list of police forces.",
+        "operationId": "GetPoliceForces",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPoliceForcesresponse"
+                },
+                "example": {
+                  "forces": [
+                    {
+                      "id": "avon-and-somerset",
+                      "name": "Avon and Somerset Constabulary"
+                    },
+                    {
+                      "id": "bedfordshire",
+                      "name": "Bedfordshire Police"
+                    },
+                    {
+                      "id": "cambridgeshire",
+                      "name": "Cambridgeshire Constabulary"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "summary": "Submit a new Force",
+        "description": "You may submit a new force through this endpoint by specifying the force details. The service will return the force ID.",
+        "operationId": "SubmitANewForce",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitanewForcerequest"
+              },
+              "example": "{\n  \"description\": \"A police service for everyone\",\n  \"url\": \"http://www.leics.police.uk/\",\n  \"telephone\": \"0116 222 2222\",\n  \"id\": \"leicestershire\",\n  \"name\": \"Leicestershire Constabulary\"\n}"
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/dataset/forces/{id}": {
+      "get": {
+        "summary": "Get Police Force Info",
+        "description": "Returns the information for a Specific Force from its specified ID.",
+        "operationId": "GetPoliceForceInfo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPoliceForceInforesponse"
+                },
+                "example": {
+                  "description": "A police service for everyone",
+                  "url": "http://www.leics.police.uk/",
+                  "engagement_methods": [
+                    {
+                      "url": "http://www.facebook.com/pages/Leicester/Leicestershire-Police/76807881169",
+                      "description": "Become friends with Leicestershire Constabulary",
+                      "title": "Facebook"
+                    },
+                    {
+                      "url": "http://www.twitter.com/leicspolice",
+                      "description": "Keep up to date with Leicestershire Constabulary on Twitter",
+                      "title": "Twitter"
+                    },
+                    {
+                      "url": "http://www.youtube.com/leicspolice",
+                      "description": "See Leicestershire Constabulary's latest videos on YouTube",
+                      "title": "YouTube"
+                    },
+                    {
+                      "url": "http://www.leics.police.uk/rss/",
+                      "description": "Keep informed with Leicestershire Constabulary's RSS feed",
+                      "title": "RSS"
+                    }
+                  ],
+                  "telephone": "0116 222 2222",
+                  "id": "leicestershire",
+                  "name": "Leicestershire Constabulary"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "summary": "Delete Force",
+        "description": "You may delete a force by it's ID",
+        "operationId": "DeleteForce",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/dataset/forces/{id}/people": {
+      "get": {
+        "summary": "Get Police Force Info1",
+        "description": "Returns the list of senior officers for a Specific Force from its specified ID",
+        "operationId": "GetPoliceForceInfo1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPoliceForceInforesponse1"
+                },
+                "example": {
+                  "officers": [
+                    {
+                      "bio": "Roger joined Lincolnshire Police in 1988 having attended Queen Elizabeth Grammar School",
+                      "name": "Roger Bannister",
+                      "rank": "Assistant Chief Officer (Crime)"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/dataset/crimes/list": {
+      "get": {
+        "summary": "Get Crimes List",
+        "description": "",
+        "operationId": "GetCrimesList",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "description": "Latitude of the requested crime area",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "52.629729"
+            }
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "description": "Longitude of the requested crime area",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "1.131592"
+            }
+          },
+          {
+            "name": "poly",
+            "in": "query",
+            "description": "The lat/lng pairs which define the boundary of the custom area",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Limit results to a specific month",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-01"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCrimesListresponse"
+                },
+                "example": {
+                  "crimes": [
+                    {
+                      "category": "anti-social-behaviour",
+                      "location_type": "Force",
+                      "location": {
+                        "latitude": "52.640961",
+                        "street": {
+                          "id": 884343,
+                          "name": "On or near Wharf Street North"
+                        },
+                        "longitude": "-1.126371"
+                      },
+                      "context": "",
+                      "outcome_status": null,
+                      "persistent_id": "",
+                      "id": 54164419,
+                      "location_subtype": "",
+                      "month": "2017-01"
+                    },
+                    {
+                      "category": "anti-social-behaviour",
+                      "location_type": "Force",
+                      "location": {
+                        "latitude": "52.633888",
+                        "street": {
+                          "id": 883425,
+                          "name": "On or near Peacock Lane"
+                        },
+                        "longitude": "-1.138924"
+                      },
+                      "context": "",
+                      "outcome_status": null,
+                      "persistent_id": "",
+                      "id": 54165316,
+                      "location_subtype": "",
+                      "month": "2017-01"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/dataset/crimes/outcomes": {
+      "get": {
+        "summary": "Get Crime Outcomes",
+        "description": "",
+        "operationId": "GetCrimeOutcomes",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "description": "Latitude of the requested crime area",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "52.629729"
+            }
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "description": "Longitude of the requested crime area",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "1.131592"
+            }
+          },
+          {
+            "name": "poly",
+            "in": "query",
+            "description": "The lat/lng pairs which define the boundary of the custom area",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Limit results to a specific month",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-01"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCrimeOutcomesresponse"
+                },
+                "example": {
+                  "outcomes": [
+                    {
+                      "category": {
+                        "code": "unable-to-prosecute",
+                        "name": "Unable to prosecute suspect"
+                      },
+                      "date": "2017-01",
+                      "person_id": null,
+                      "crime": {
+                        "category": "theft-from-the-person",
+                        "location_type": "Force",
+                        "location": {
+                          "latitude": "52.634474",
+                          "street": {
+                            "id": 883498,
+                            "name": "On or near Kate Street"
+                          },
+                          "longitude": "-1.149197"
+                        },
+                        "context": "",
+                        "persistent_id": "a5a98275facee535b959b236130f5ec05205869fb3d0804c9b14296fcd0bce46",
+                        "id": 53566126,
+                        "location_subtype": "ROAD",
+                        "month": "2016-12"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetPoliceForcesresponse": {
+        "title": "GetPoliceForcesresponse",
+        "required": [
+          "forces"
+        ],
+        "type": "object",
+        "properties": {
+          "forces": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Force"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "forces": [
+            {
+              "id": "avon-and-somerset",
+              "name": "Avon and Somerset Constabulary"
+            },
+            {
+              "id": "bedfordshire",
+              "name": "Bedfordshire Police"
+            },
+            {
+              "id": "cambridgeshire",
+              "name": "Cambridgeshire Constabulary"
+            }
+          ]
+        }
+      },
+      "Force": {
+        "title": "Force",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "avon-and-somerset"
+          },
+          "name": {
+            "type": "string",
+            "example": "Avon and Somerset Constabulary"
+          }
+        }
+      },
+      "GetPoliceForceInforesponse": {
+        "title": "GetPoliceForceInforesponse",
+        "required": [
+          "description",
+          "url",
+          "engagement_methods",
+          "telephone",
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "engagement_methods": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EngagementMethod"
+            },
+            "description": ""
+          },
+          "telephone": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "description": "A police service for everyone",
+          "url": "http://www.leics.police.uk/",
+          "engagement_methods": [
+            {
+              "url": "http://www.facebook.com/pages/Leicester/Leicestershire-Police/76807881169",
+              "description": "Become friends with Leicestershire Constabulary",
+              "title": "Facebook"
+            },
+            {
+              "url": "http://www.twitter.com/leicspolice",
+              "description": "Keep up to date with Leicestershire Constabulary on Twitter",
+              "title": "Twitter"
+            },
+            {
+              "url": "http://www.youtube.com/leicspolice",
+              "description": "See Leicestershire Constabulary's latest videos on YouTube",
+              "title": "YouTube"
+            },
+            {
+              "url": "http://www.leics.police.uk/rss/",
+              "description": "Keep informed with Leicestershire Constabulary's RSS feed",
+              "title": "RSS"
+            }
+          ],
+          "telephone": "0116 222 2222",
+          "id": "leicestershire",
+          "name": "Leicestershire Constabulary"
+        }
+      },
+      "EngagementMethod": {
+        "title": "EngagementMethod",
+        "required": [
+          "url",
+          "description",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "example": "http://www.facebook.com/pages/Leicester/Leicestershire-Police/76807881169"
+          },
+          "description": {
+            "type": "string",
+            "example": "Become friends with Leicestershire Constabulary"
+          },
+          "title": {
+            "type": "string",
+            "example": "Facebook"
+          }
+        }
+      },
+      "GetPoliceForceInforesponse1": {
+        "title": "GetPoliceForceInforesponse1",
+        "required": [
+          "officers"
+        ],
+        "type": "object",
+        "properties": {
+          "officers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Officer"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "officers": [
+            {
+              "bio": "Roger joined Lincolnshire Police in 1988 having attended Queen Elizabeth Grammar School",
+              "name": "Roger Bannister",
+              "rank": "Assistant Chief Officer (Crime)"
+            }
+          ]
+        }
+      },
+      "Officer": {
+        "title": "Officer",
+        "required": [
+          "bio",
+          "name",
+          "rank"
+        ],
+        "type": "object",
+        "properties": {
+          "bio": {
+            "type": "string",
+            "example": "Roger joined Lincolnshire Police in 1988 having attended Queen Elizabeth Grammar School"
+          },
+          "name": {
+            "type": "string",
+            "example": "Roger Bannister"
+          },
+          "rank": {
+            "type": "string",
+            "example": "Assistant Chief Officer (Crime)"
+          }
+        }
+      },
+      "SubmitanewForcerequest": {
+        "title": "SubmitanewForcerequest",
+        "required": [
+          "description",
+          "url",
+          "telephone",
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "telephone": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "description": "A police service for everyone",
+          "url": "http://www.leics.police.uk/",
+          "telephone": "0116 222 2222",
+          "id": "leicestershire",
+          "name": "Leicestershire Constabulary"
+        }
+      },
+      "GetCrimesListresponse": {
+        "title": "GetCrimesListresponse",
+        "required": [
+          "crimes"
+        ],
+        "type": "object",
+        "properties": {
+          "crimes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Crime"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "crimes": [
+            {
+              "category": "anti-social-behaviour",
+              "location_type": "Force",
+              "location": {
+                "latitude": "52.640961",
+                "street": {
+                  "id": 884343,
+                  "name": "On or near Wharf Street North"
+                },
+                "longitude": "-1.126371"
+              },
+              "context": "",
+              "outcome_status": null,
+              "persistent_id": "",
+              "id": 54164419,
+              "location_subtype": "",
+              "month": "2017-01"
+            },
+            {
+              "category": "anti-social-behaviour",
+              "location_type": "Force",
+              "location": {
+                "latitude": "52.633888",
+                "street": {
+                  "id": 883425,
+                  "name": "On or near Peacock Lane"
+                },
+                "longitude": "-1.138924"
+              },
+              "context": "",
+              "outcome_status": null,
+              "persistent_id": "",
+              "id": 54165316,
+              "location_subtype": "",
+              "month": "2017-01"
+            }
+          ]
+        }
+      },
+      "Crime": {
+        "title": "Crime",
+        "required": [
+          "category",
+          "location_type",
+          "location",
+          "context",
+          "persistent_id",
+          "id",
+          "location_subtype",
+          "month"
+        ],
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "example": "anti-social-behaviour"
+          },
+          "location_type": {
+            "type": "string",
+            "example": "Force"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "context": {
+            "type": "string"
+          },
+          "outcome_status": {
+            "type": "string",
+            "nullable": true
+          },
+          "persistent_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 54164419
+          },
+          "location_subtype": {
+            "type": "string"
+          },
+          "month": {
+            "type": "string",
+            "example": "2017-01"
+          }
+        }
+      },
+      "Location": {
+        "title": "Location",
+        "required": [
+          "latitude",
+          "street",
+          "longitude"
+        ],
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "string",
+            "example": "52.640961"
+          },
+          "street": {
+            "$ref": "#/components/schemas/Street"
+          },
+          "longitude": {
+            "type": "string",
+            "example": "-1.126371"
+          }
+        },
+        "example": {
+          "latitude": "52.640961",
+          "street": {
+            "id": 884343,
+            "name": "On or near Wharf Street North"
+          },
+          "longitude": "-1.126371"
+        }
+      },
+      "Street": {
+        "title": "Street",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 884343
+          },
+          "name": {
+            "type": "string",
+            "example": "On or near Wharf Street North"
+          }
+        },
+        "example": {
+          "id": 884343,
+          "name": "On or near Wharf Street North"
+        }
+      },
+      "GetCrimeOutcomesresponse": {
+        "title": "GetCrimeOutcomesresponse",
+        "required": [
+          "outcomes"
+        ],
+        "type": "object",
+        "properties": {
+          "outcomes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Outcome"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "outcomes": [
+            {
+              "category": {
+                "code": "unable-to-prosecute",
+                "name": "Unable to prosecute suspect"
+              },
+              "date": "2017-01",
+              "person_id": null,
+              "crime": {
+                "category": "theft-from-the-person",
+                "location_type": "Force",
+                "location": {
+                  "latitude": "52.634474",
+                  "street": {
+                    "id": 883498,
+                    "name": "On or near Kate Street"
+                  },
+                  "longitude": "-1.149197"
+                },
+                "context": "",
+                "persistent_id": "a5a98275facee535b959b236130f5ec05205869fb3d0804c9b14296fcd0bce46",
+                "id": 53566126,
+                "location_subtype": "ROAD",
+                "month": "2016-12"
+              }
+            }
+          ]
+        }
+      },
+      "Outcome": {
+        "title": "Outcome",
+        "required": [
+          "category",
+          "date",
+          "crime"
+        ],
+        "type": "object",
+        "properties": {
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "date": {
+            "type": "string",
+            "example": "2017-01"
+          },
+          "person_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "crime": {
+            "$ref": "#/components/schemas/Crime1"
+          }
+        }
+      },
+      "Category": {
+        "title": "Category",
+        "required": [
+          "code",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "unable-to-prosecute"
+          },
+          "name": {
+            "type": "string",
+            "example": "Unable to prosecute suspect"
+          }
+        },
+        "example": {
+          "code": "unable-to-prosecute",
+          "name": "Unable to prosecute suspect"
+        }
+      },
+      "Crime1": {
+        "title": "Crime1",
+        "required": [
+          "category",
+          "location_type",
+          "location",
+          "context",
+          "persistent_id",
+          "id",
+          "location_subtype",
+          "month"
+        ],
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "example": "theft-from-the-person"
+          },
+          "location_type": {
+            "type": "string",
+            "example": "Force"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "context": {
+            "type": "string"
+          },
+          "persistent_id": {
+            "type": "string",
+            "example": "a5a98275facee535b959b236130f5ec05205869fb3d0804c9b14296fcd0bce46"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 53566126
+          },
+          "location_subtype": {
+            "type": "string",
+            "example": "ROAD"
+          },
+          "month": {
+            "type": "string",
+            "example": "2016-12"
+          }
+        },
+        "example": {
+          "category": "theft-from-the-person",
+          "location_type": "Force",
+          "location": {
+            "latitude": "52.634474",
+            "street": {
+              "id": 883498,
+              "name": "On or near Kate Street"
+            },
+            "longitude": "-1.149197"
+          },
+          "context": "",
+          "persistent_id": "a5a98275facee535b959b236130f5ec05205869fb3d0804c9b14296fcd0bce46",
+          "id": 53566126,
+          "location_subtype": "ROAD",
+          "month": "2016-12"
+        }
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,551 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "CN 18/19 - Grupo 9",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://e26c3stxh4.execute-api.us-east-2.amazonaws.com/{basePath}",
+      "variables": {
+        "basePath": {
+          "default": "/Deployment"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/dataset/crimes/outcomes": {
+      "get": {
+        "operationId": "GetCrimeOutcomes",
+        "parameters": [
+          {
+            "name": "lng",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lat",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "poly",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCrimeOutcomesresponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dataset/forces/{id}/people": {
+      "get": {
+        "operationId": "GetPoliceForceInfo1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPoliceForceInforesponse1"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/dataset/forces/{id}": {
+      "get": {
+        "operationId": "GetPoliceForceInfo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteForce",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "202 response",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/dataset/forces": {
+      "get": {
+        "operationId": "GetPoliceForces",
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPoliceForcesresponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "SubmitANewForce",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitanewForcerequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "content": {}
+          },
+          "500": {
+            "description": "500 response",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/dataset/crimes/list": {
+      "get": {
+        "operationId": "GetCrimesList",
+        "parameters": [
+          {
+            "name": "lng",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lat",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "poly",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCrimesListresponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Category": {
+        "title": "Category",
+        "required": [
+          "code",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Force": {
+        "title": "Force",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "SubmitanewForcerequest": {
+        "title": "SubmitanewForcerequest",
+        "required": [
+          "description",
+          "id",
+          "name",
+          "telephone",
+          "url"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "telephone": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Crime1": {
+        "title": "Crime1",
+        "required": [
+          "category",
+          "context",
+          "id",
+          "location",
+          "location_subtype",
+          "location_type",
+          "month",
+          "persistent_id"
+        ],
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "location_type": {
+            "type": "string"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "context": {
+            "type": "string"
+          },
+          "persistent_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "location_subtype": {
+            "type": "string"
+          },
+          "month": {
+            "type": "string"
+          }
+        }
+      },
+      "GetPoliceForceInforesponse1": {
+        "title": "GetPoliceForceInforesponse1",
+        "required": [
+          "officers"
+        ],
+        "type": "object",
+        "properties": {
+          "officers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Officer"
+            }
+          }
+        }
+      },
+      "GetPoliceForcesresponse": {
+        "title": "GetPoliceForcesresponse",
+        "required": [
+          "forces"
+        ],
+        "type": "object",
+        "properties": {
+          "forces": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Force"
+            }
+          }
+        }
+      },
+      "Outcome": {
+        "title": "Outcome",
+        "required": [
+          "category",
+          "crime",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "date": {
+            "type": "string"
+          },
+          "person_id": {
+            "type": "string"
+          },
+          "crime": {
+            "$ref": "#/components/schemas/Crime1"
+          }
+        }
+      },
+      "Crime": {
+        "title": "Crime",
+        "required": [
+          "category",
+          "context",
+          "id",
+          "location",
+          "location_subtype",
+          "location_type",
+          "month",
+          "persistent_id"
+        ],
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "location_type": {
+            "type": "string"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "context": {
+            "type": "string"
+          },
+          "outcome_status": {
+            "type": "string"
+          },
+          "persistent_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "location_subtype": {
+            "type": "string"
+          },
+          "month": {
+            "type": "string"
+          }
+        }
+      },
+      "Street": {
+        "title": "Street",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "GetCrimesListresponse": {
+        "title": "GetCrimesListresponse",
+        "required": [
+          "crimes"
+        ],
+        "type": "object",
+        "properties": {
+          "crimes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Crime"
+            }
+          }
+        }
+      },
+      "GetCrimeOutcomesresponse": {
+        "title": "GetCrimeOutcomesresponse",
+        "required": [
+          "outcomes"
+        ],
+        "type": "object",
+        "properties": {
+          "outcomes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Outcome"
+            }
+          }
+        }
+      },
+      "Location": {
+        "title": "Location",
+        "required": [
+          "latitude",
+          "longitude",
+          "street"
+        ],
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "string"
+          },
+          "street": {
+            "$ref": "#/components/schemas/Street"
+          },
+          "longitude": {
+            "type": "string"
+          }
+        }
+      },
+      "Officer": {
+        "title": "Officer",
+        "required": [
+          "bio",
+          "name",
+          "rank"
+        ],
+        "type": "object",
+        "properties": {
+          "bio": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rank": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "x-api-key",
+        "in": "header"
+      }
+    }
+  }
+}
